@@ -12,24 +12,45 @@ import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
 
 class ShoppingList extends PolymerElement {
-  static get template() {
-    return html`
-      <style include="shared-styles">
-        :host {
-          display: block;
+    constructor() {
+      super();
 
-          padding: 10px;
+      this.products = [
+          
+      ];
+      this.inputValue = '';
+    }
+    
+    static get template () {
+        
+        return html`
+            <div> Lista produktów </div>
+            <p></p>
+            <input value="{{inputValue::change}}" mutable-data>        
+            <button on-click="handleAddClick">Dodaj</button>
+            <template is="dom-repeat" items="{{products}}" mutable-data>
+                <div>
+                    <span contenteditable="true">{{item.name}} </span>
+                    <button on-click="handleRemoveClick">Usuń</button>
+                </div>
+            </template>       
+            `;
+    }
+    
+    handleAddClick() {
+        if (this.inputValue.trim().length === 0) {
+            alert("Podaj produkt");
+        } else{
+            this.push('products', {name: this.inputValue});
+            this.inputValue = '';
+          }
         }
-      </style>
-
-      <div class="card">
-        <div class="circle">1</div>
-        <h1>View One</h1>
-        <p>Ut labores minimum atomorum pro. Laudem tibique ut has.</p>
-        <p>Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Lorem ipsum dolor sit amet, per in nusquam nominavi periculis, sit elit oportere ea.Cu mei vide viris gloriatur, at populo eripuit sit.</p>
-      </div>
-    `;
-  }
+    handleRemoveClick() {
+      let index = this.products.map(function(e) { return e.name; }).indexOf('dd');
+      console.log(index);
+      this.splice("products",index, 1);
+      console.info(this.products);
+    }
 }
 
 window.customElements.define('shopping-list', ShoppingList);
