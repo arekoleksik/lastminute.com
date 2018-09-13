@@ -85,6 +85,7 @@ class MyApp extends PolymerElement {
           <app-toolbar>Menu</app-toolbar>
           <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
             <a name="shopping-list" href="[[rootPath]]shopping-list">Lista zakupów</a>
+            <a name="check-weather" href="[[rootPath]]check-weather">Sprawdź pogodę</a>
             <a name="help-view" href="[[rootPath]]help-view">Pomoc</a>
           </iron-selector>
         </app-drawer>
@@ -102,6 +103,7 @@ class MyApp extends PolymerElement {
           <iron-pages selected="[[page]]" attr-for-selected="name" role="main">
             <shopping-list name="shopping-list"></shopping-list>
             <help-view name="help-view"></help-view>
+            <check-weather name="check-weather"></check-weather>
             <my-view404 name="view404"></my-view404>
           </iron-pages>
         </app-header-layout>
@@ -134,7 +136,7 @@ class MyApp extends PolymerElement {
      // Show 'view1' in that case. And if the page doesn't exist, show 'view404'.
     if (!page) {
       this.page = 'shopping-list';
-    } else if (['shopping-list', 'help-view'].indexOf(page) !== -1) {
+    } else if (['shopping-list', 'help-view', 'check-weather'].indexOf(page) !== -1) {
       this.page = page;
     } else {
       this.page = 'view404';
@@ -157,6 +159,9 @@ class MyApp extends PolymerElement {
         break;
       case 'help-view':
         import('./help-view.js');
+        break;
+    case 'check-weather':
+        import('./check-weather.js');
         break;
       case 'view404':
         import('./my-view404.js');
