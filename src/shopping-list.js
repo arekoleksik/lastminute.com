@@ -10,30 +10,27 @@
 
 import { PolymerElement, html } from '@polymer/polymer/polymer-element.js';
 import './shared-styles.js';
+import '../public_html/bower_components/paper-button/paper-button.js';
 
 class ShoppingList extends PolymerElement {
     constructor() {
       super();
-
-      this.products = [
-          
-      ];
+      this.products = [];
       this.inputValue = '';
     }
     
     static get template () {
-        
         return html`
             <div> Lista produktów </div>
             <p></p>
             <input value="{{inputValue::change}}" mutable-data>        
-            <button on-click="handleAddClick">Dodaj</button>
+            <paper-button raised on-tap="handleAddClick" class="primary">Dodaj</paper-button>
             <template is="dom-repeat" items="{{products}}" mutable-data>
                 <div>
                     <span contenteditable="true">{{item.name}} </span>
-                    <button on-click="handleRemoveClick">Usuń</button>
+                    <paper-button raised on-tap="handleRemoveClick" class="secondary">Usuń</paper-button>
                 </div>
-            </template>       
+            </template>   
             `;
     }
     
@@ -45,6 +42,7 @@ class ShoppingList extends PolymerElement {
             this.inputValue = '';
           }
         }
+        
     handleRemoveClick() {
       let index = this.products.map(function(e) { return e.name; }).indexOf('dd');
       console.log(index);

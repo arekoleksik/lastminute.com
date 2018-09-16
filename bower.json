@@ -1,12 +1,14 @@
 {
-    "name": "lastminute.com",
-    "version": "1.0.0",
-    "main": "path/to/main.css",
-    "ignore": [
-        ".jshintrc", "**/*.txt"
-    ],
-    "dependencies": {
-    },
-    "devDependencies": {
-    }
+  "name": "lastminute.com",
+  "version": "1.0.0",
+  "main": "path/to/main.css",
+  "ignore": [
+    ".jshintrc",
+    "**/*.txt"
+  ],
+  "dependencies": {
+    "iron-ajax": "PolymerElements/iron-ajax#^3.0.1",
+    "paper-button": "PolymerElements/paper-button#^3.0.1"
+  },
+  "devDependencies": {}
 }
