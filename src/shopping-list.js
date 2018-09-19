@@ -18,6 +18,7 @@ class ShoppingList extends PolymerElement {
       super();
         this.inputValue = '';
     }
+    
     static get properties() {
     return {
       products: {

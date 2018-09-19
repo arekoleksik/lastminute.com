@@ -40,7 +40,7 @@ class CheckWeather extends PolymerElement {
             last-response="{{answer}}">
         </iron-ajax>
         <div class="card">
-          <h1>Pogoda [[answer.name]]  [[getRoundTemp(answer.main.temp)]]&deg</h1>
+          <h1>Pogoda [[answer.name]]  [[getRoundTemp(answer.main.temp)]]</h1>
           <div>{{enableShopping(answer)}}</div> 
         </div>      
     `;
@@ -50,6 +50,14 @@ class CheckWeather extends PolymerElement {
     this.renderCount++;
     console.log(this.renderCount);
   }
+  responseHendler(name){
+      if (isNaN(name)){
+          return "";
+      }else{
+          return name;
+      }
+  };
+  
   loadAsync() {       
     const options={
         enableHighAccuracy: true,
@@ -71,7 +79,7 @@ class CheckWeather extends PolymerElement {
     } 
 
     function error(err) {
-      console.warn(`ERROR(${err.code}): ${err.message}`);
+     console.warn(`ERROR(${err.code}): ${err.message}`);
     }   
     navigator.geolocation.getCurrentPosition(success, error, options);
 
@@ -83,11 +91,18 @@ class CheckWeather extends PolymerElement {
   }
 
     getRoundTemp(temp) {
-        return Math.round(temp);
+      if (isNaN(temp)){
+          return " ";
+      }else{
+          return `${Math.round(temp)}\xB0`;
+      }                
     }
     
     enableShopping(json){
-        if(json.hasOwnProperty('rain') || json.hasOwnProperty('snow')){
+        if(json === null){
+            return 'Aby sprawdzić pogodę dla aktualnej pozycji zezwól na sprawdzenie swojej lokalizacji';
+        }
+        else if(json.hasOwnProperty('rain') || json.hasOwnProperty('snow')){
             return 'Lepiej nie idź na zakupy, możesz zmoknąć :(';
         }else{
             return 'Dziś jest odpowiednia pogoda na zakupy :-)';
